@@ -1,0 +1,29 @@
+.preview-link {
+  cursor: pointer;
+}
+/* .banner {
+  background-image: url("../bn-1.jpg");
+  background-color: #000 !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: exclusion;
+} */
+.banner {
+  overflow: hidden;
+  position: relative;
+  /* max-width: 800px; */
+  margin: 0 auto;
+  padding: 0;
+  height: 200px;
+}
+
+.banner img {vertical-align: middle;}
+.banner .content {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+  width: 100%;
+  height: 200px;
+  padding: 20px;
+}

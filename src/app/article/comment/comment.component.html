@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-xs-12 col-md-8 offset-md-2">
+    <div class="card-block" *ngIf="token">
+      <textarea
+        class="form-control"
+        placeholder="Write a comment..."
+        rows="1"
+        name="text"
+        [(ngModel)]="textComment"
+      ></textarea>
+      <button
+        id="postcomment"
+        class="btn btn-sm btn-primary pull-xs-right mt-2"
+        (click)="postComment()"
+      >
+        Post Comment
+      </button>
+    </div>
+    <div *ngIf="!token" style="text-align: center;">
+      <a href="login">Sign in</a> or <a href="sign-up">sign up</a> to add
+      comments on this article.
+    </div>
+
+    <div class="card" *ngFor="let c of comment; let i = index">
+      <div class="card-block">
+        <div class="card-text">
+          {{ c?.body }}
+        </div>
+        <div
+          class="delete"
+          (click)="handleDelete(c.id)"
+          *ngIf="currentUser == c?.author.username"
+        >
+          <i class="fas fa-trash-alt mt-2"></i>
+        </div>
+      </div>
+      <div class="card-footer">
+        <img [src]="c?.author.image" class="comment-author-img mr-2" />
+        <a href="" class="author mr-2">{{ c?.author.username }}</a>
+        <span class="date">{{ c.createdAt | date }}</span>
+      </div>
+    </div>
+  </div>
+</div>

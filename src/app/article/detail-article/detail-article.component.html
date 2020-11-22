@@ -1,0 +1,169 @@
+<div class="article-page">
+  <div class="banner">
+    <!-- <div class="container"> -->
+      <img src="../bn-1.jpg" alt="Notebook" style="width: 100%" />
+      <div class="content">
+      <div class="row" *ngIf="!article">
+        <div class="col-xs-12 col-md-10 offset-md-1">
+          <app-preloading-rounded-square></app-preloading-rounded-square>
+        </div>
+      </div>
+      <ng-container *ngIf="article">
+        <h1>{{ article?.article.title }}</h1>
+
+        <div class="article-meta">
+          <a
+            [routerLink]="['/', 'user', article?.article.author.username]"
+            routerLinkActive="active"
+            ><img [src]="article?.article.author.image"
+          /></a>
+          <div class="info">
+            <a
+              [routerLink]="['/', 'user', article?.article.author.username]"
+              routerLinkActive="active"
+              class="author"
+              >{{ article?.article.author.username }}</a
+            >
+            <span class="author">{{ article?.article.createdAt | date }}</span>
+          </div>
+          <ng-container *ngIf="currentUser != article?.article.author.username">
+            <!-- follow -->
+            <button
+              class="btn btn-sm btn-info"
+              *ngIf="article?.article.author.following"
+              (click)="unFollow(article?.article.author.username)"
+            >
+              <i class="ion-plus-round"></i> Unfollow
+              {{ article?.article.author.username }}
+              <!-- <span class="counter">(10)</span> -->
+            </button>
+            <button
+              class="btn btn-sm btn-secondary"
+              *ngIf="!article?.article.author.following"
+              (click)="follow(article?.article.author.username)"
+            >
+              <i class="ion-plus-round"></i> Follow
+              {{ article?.article.author.username }}
+              <!-- <span class="counter">(10)</span> -->
+            </button>
+            &nbsp;
+            <!-- favorite -->
+            <button
+              class="btn btn-sm btn-primary"
+              *ngIf="article?.article.favorited"
+              (click)="deleteFavorite(article?.article?.slug)"
+            >
+              <i class="ion-heart"></i> Unfavorite Post
+              <span class="counter"
+                >({{ article?.article?.favoritesCount }})</span
+              >
+            </button>
+            <button
+              class="btn btn-sm btn-danger"
+              *ngIf="!article?.article.favorited"
+              (click)="addFavorite(article?.article?.slug)"
+            >
+              <i class="ion-heart"></i> Favorite Post
+              <span class="counter"
+                >({{ article?.article?.favoritesCount }})</span
+              >
+            </button>
+          </ng-container>
+          &nbsp;
+          <ng-container *ngIf="currentUser == article?.article.author.username">
+            <!-- edit -->
+            <button
+              [routerLink]="['/', 'edit', article?.article.slug]"
+              class="btn btn-sm btn-light"
+            >
+              <i class="far fa-edit"></i> Edit Article
+            </button>
+            &nbsp;
+            <!-- delete -->
+            <button
+              class="btn btn-sm btn-danger"
+              (click)="deleteArticle()"
+            >
+              <i class="fas fa-trash-alt"></i> Delete Article
+            </button>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <app-preloading-hash *ngIf="!article"></app-preloading-hash>
+  <div class="container page" *ngIf="article">
+    <div class="row article-content">
+      <div class="col-md-12">
+        <h5>{{ article?.article.description }}</h5>
+        <p>
+          {{ article?.article.body }}
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="article-actions">
+      <div class="article-meta">
+        <a
+          [routerLink]="['/', 'user', article?.article.author.username]"
+          routerLinkActive="active"
+          ><img [src]="article?.article.author.image"
+        /></a>
+        <div class="info">
+          <a
+            [routerLink]="['/', 'user', article?.article.author.username]"
+            routerLinkActive="active"
+            class="author"
+            >{{ article?.article.author.username }}</a
+          >
+          <span class="date">{{ article?.article.updatedAt | date }}</span>
+        </div>
+
+        <button
+          class="btn btn-sm btn-info"
+          *ngIf="article?.article.author.following"
+          (click)="unFollow(article?.article.author.username)"
+        >
+          <i class="ion-plus-round"></i> Unfollow
+          {{ article?.article.author.username }}
+          <!-- <span class="counter">(10)</span> -->
+        </button>
+        <button
+          class="btn btn-sm btn-secondary"
+          *ngIf="!article?.article.author.following"
+          (click)="follow(article?.article.author.username)"
+        >
+          <i class="ion-plus-round"></i> Follow
+          {{ article?.article.author.username }}
+          <!-- <span class="counter">(10)</span> -->
+        </button>
+        &nbsp;
+        <button
+          class="btn btn-sm btn-primary"
+          *ngIf="article?.article.favorited"
+          (click)="deleteFavorite(article?.article?.slug)"
+        >
+          <i class="ion-heart"></i> Unfavorite Post
+          <span class="counter">({{ article?.article?.favoritesCount }})</span>
+        </button>
+        <button
+          class="btn btn-sm btn-danger"
+          *ngIf="!article?.article.favorited"
+          (click)="addFavorite(article?.article?.slug)"
+        >
+          <i class="ion-heart"></i> Favorite Post
+          <span class="counter">({{ article?.article?.favoritesCount }})</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <app-comment
+      [comment]="listComments"
+      [slug]="slug"
+      (addComment)="postCommentnew($event)"
+      (deleteComment)="deleteComment($event)"
+    ></app-comment>
+  </div>
+</div>

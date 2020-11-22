@@ -1,0 +1,109 @@
+
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <particles
+          id="particles"
+          [params]="myParams"
+          [style]="myStyle"
+          [width]="width"
+          [height]="height"
+        ></particles>
+
+        <h1 class="text-xs-center mt-5 mb-4 text-info">Sign in</h1>
+
+        <ul class="error-messages" *ngIf="errorMessage">
+          <li>Email and Password invalid</li>
+        </ul>
+
+        <form #login="ngForm" (ngSubmit)="onSubmit()">
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="text"
+              placeholder="Your Name"
+              name="emailLogin"
+              #emailLogin="ngModel"
+              [(ngModel)]="email"
+              required
+              minlength="6"
+              maxlength="32"
+              [pattern]="usernamePattern"
+            />
+            <div
+              class="validate"
+              *ngIf="emailLogin.touched && !emailLogin.valid"
+            >
+              <span *ngIf="emailLogin.errors.required">Enter your email</span>
+              <span
+                *ngIf="
+                  emailLogin.errors.minlength || emailLogin.errors.maxlength
+                "
+                >Length from 6 to 32 characters</span
+              >
+              <span
+                *ngIf="
+                  !(
+                    emailLogin.errors.minlength || emailLogin.errors.maxlength
+                  ) && emailLogin.errors.pattern
+                "
+                >Only alphabet</span
+              >
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="password"
+              placeholder="Password"
+              [(ngModel)]="password"
+              name="loginPassword"
+              #loginPassword="ngModel"
+              required
+              minlength="6"
+              maxlength="32"
+            />
+
+            <div
+              class="validate"
+              *ngIf="loginPassword.touched && !loginPassword.valid"
+            >
+              <span *ngIf="loginPassword.errors.required"
+                >Enter your password</span
+              >
+              <span
+                *ngIf="
+                  loginPassword.errors.minlength ||
+                  loginPassword.errors.maxlength
+                "
+                >Length from 6 to 32 characters</span
+              >
+              <span
+                *ngIf="
+                  !(
+                    loginPassword.errors.minlength ||
+                    loginPassword.errors.maxlength
+                  ) && loginPassword.errors.pattern
+                "
+                >Only alphabet</span
+              >
+            </div>
+          </fieldset>
+          <button
+            type="submit"
+            class="btn btn-lg btn-primary pull-xs-right"
+            [disabled]="!login.valid"
+          >
+            Sign in
+          </button>
+        </form>
+      </div>
+    </div>
+    <p class="text-xs-center mt-4">
+      You do not have an account ? <a href="/sign-up">Register now</a>
+    </p>
+  </div>
+</div>
+

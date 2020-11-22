@@ -1,0 +1,39 @@
+<div class="home-page">
+  <div class="banner">
+    <!-- <div class="container"> -->
+      <img src="../bn-1.jpg" alt="Notebook" style="width: 100%" />
+      <div class="content">
+        <h1 class="logo-font">F4Book</h1>
+        <p>Nơi cảm xúc thăng hoa,mọi nỗi buồn được giải tỏa</p>
+      </div>
+    <!-- </div> -->
+  </div>
+
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <app-list-article
+          [listArticle]="articles"
+          [tagEvent]="tagEvent"
+          [listTab]="listTab"
+          (handleChangeTab)="changeTab($event)"
+          (handleAddFavorite)="addFavorite($event)"
+          (handleDeleteFavorite)="deleteFavorite($event)"
+        ></app-list-article>
+      </div>
+      <!--tag-->
+      <div class="col-md-3">
+        <app-tag
+          [tags]="tags"
+          (showTagByHuman)="showArticleByTag($event)"
+        ></app-tag>
+      </div>
+    </div>
+  </div>
+  <app-pagination
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="articleCount"
+    (pageChangeByHandle)="handlePageChange($event)"
+  ></app-pagination>
+</div>

@@ -1,0 +1,10 @@
+i {
+  float: right;
+}
+
+i:hover {
+  transform: scale(1.3);
+}
+.delete {
+  cursor: pointer;
+}

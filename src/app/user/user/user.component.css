@@ -1,0 +1,23 @@
+.user-info {
+  overflow: hidden;
+  position: relative;
+  /* max-width: 800px; */
+  margin: 0 auto;
+  padding: 0;
+  max-height: 300px;
+}
+
+.user-info img {vertical-align: middle;}
+.user-info .content {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+  width: 100%;
+  height: 300px;
+  padding: 20px;
+}
+
+.profile-page .user-info .action-btn{
+  color: black;
+}

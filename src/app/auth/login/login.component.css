@@ -1,0 +1,11 @@
+input.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+.validate span {
+  color: red;
+}
+
+ul {
+  list-style-type: none;
+}

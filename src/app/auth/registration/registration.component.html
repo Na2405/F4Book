@@ -1,0 +1,135 @@
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <particles
+          id="particles"
+          [params]="myParams"
+          [style]="myStyle"
+          [width]="width"
+          [height]="height"
+        ></particles>
+        <h1 class="text-xs-center mt-5 text-info">Sign up</h1>
+        <p class="text-xs-center">
+          <a href="/login">Have an account?</a>
+        </p>
+
+        <ul class="error-messages" *ngIf="err">
+          <li>That email is already taken</li>
+        </ul>
+
+        <form #signUpForm="ngForm" (ngSubmit)="onSubmit()">
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="text"
+              placeholder="Your Name"
+              [(ngModel)]="username"
+              name="usernameRes"
+              #usernameRes="ngModel"
+              required
+              minlength="6"
+              maxlength="32"
+            />
+            <div
+              class="validate"
+              *ngIf="usernameRes.touched && !usernameRes.valid"
+            >
+              <span *ngIf="usernameRes.errors.required"
+                >Enter your username</span
+              >
+              <span
+                *ngIf="
+                  usernameRes.errors.minlength || usernameRes.errors.maxlength
+                "
+                >Length from 6 to 32 characters</span
+              >
+              <span
+                *ngIf="
+                  !(
+                    usernameRes.errors.minlength || usernameRes.errors.maxlength
+                  ) && usernameRes.errors.pattern
+                "
+                >Only alphabet</span
+              >
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="text"
+              placeholder="Email"
+              required
+              [(ngModel)]="email"
+              name="emailRes"
+              #emailRes="ngModel"
+              required
+              minlength="6"
+              maxlength="32"
+              [pattern]="usernamePattern"
+            />
+            <div class="validate" *ngIf="emailRes.touched && !emailRes.valid">
+              <span *ngIf="emailRes.errors.required">Enter your email</span>
+              <span
+                *ngIf="emailRes.errors.minlength || emailRes.errors.maxlength"
+                >Length from 6 to 32 characters</span
+              >
+              <span
+                *ngIf="
+                  !(emailRes.errors.minlength || emailRes.errors.maxlength) &&
+                  emailRes.errors.pattern
+                "
+                >Email must be in format abc@xyz</span
+              >
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <input
+              class="form-control form-control-lg"
+              type="password"
+              placeholder="Password"
+              [(ngModel)]="password"
+              name="passwordRes"
+              #passwordRes="ngModel"
+              required
+              minlength="6"
+              maxlength="32"
+            />
+            <div
+              class="validate"
+              *ngIf="passwordRes.touched && !passwordRes.valid"
+            >
+              <span *ngIf="passwordRes.errors.required"
+                >Enter your password</span
+              >
+              <span
+                *ngIf="
+                  passwordRes.errors.minlength || passwordRes.errors.maxlength
+                "
+                >Length from 6 to 32 characters</span
+              >
+              <span
+                *ngIf="
+                  !(
+                    passwordRes.errors.minlength || passwordRes.errors.maxlength
+                  ) && passwordRes.errors.pattern
+                "
+                >Only alphabet</span
+              >
+            </div>
+          </fieldset>
+
+          <button
+            type="submit"
+            class="btn btn-lg btn-primary pull-xs-right"
+            [disabled]="!signUpForm.valid"
+          >
+            Sign up
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
